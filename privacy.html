@@ -68,17 +68,24 @@
     </section>
     <section>
       <h2>外部通信について</h2>
-      <p>本アプリは為替レートを取得するため、<strong>Frankfurter API</strong>（欧州中央銀行の参照レートを提供する外部サービス。<a href="https://frankfurter.dev/">frankfurter.dev</a>）へHTTPS通信を行います。この通信に伴い、通信の性質上お使いの端末のIPアドレスや取得対象の通貨ペアが送信先（および経由するCDN）に伝わりますが、<strong>当方はこれらを収集・保管しません。</strong> 送信先サービスの取り扱いについては各サービスのポリシーをご確認ください。</p>
+      <p>本アプリは為替レートを取得するため、以下へHTTPS通信を行います。</p>
+      <ul>
+        <li><strong>Frankfurter API</strong>（欧州中央銀行の参照レートを提供する外部サービス。<a href="https://frankfurter.dev/">frankfurter.dev</a>）— 日次レートおよび1週間〜10年のチャートの取得に使用します。</li>
+        <li><strong>当方が運用する中継サーバ</strong> — 「1D」（24時間）チャートの取得にのみ使用します。中継サーバは <a href="https://www.exchangerate-api.com/">ExchangeRate-API</a> から定期的にレートを取得して保持しており、アプリからのリクエストに対してはその保持データを返します。</li>
+      </ul>
+      <p>これらの通信に伴い、通信の性質上お使いの端末のIPアドレスや取得対象の通貨ペアが送信先（および経由するCDN）に伝わります。</p>
+      <p><strong>中継サーバについて。</strong> 当方は中継サーバのアプリケーションにおいて、リクエスト内容・IPアドレス・閲覧された通貨ペアのいずれも記録していません。ただし、中継サーバのホスティング事業者（<a href="https://railway.com/">Railway</a>）が、プラットフォームの標準機能としてHTTPアクセスログ（接続元IPアドレスを含む）を一定期間保持します。当方はこのログをユーザーの識別・追跡・分析・広告のために利用することはなく、第三者へ提供することもありません。</p>
+      <p>中継サーバからExchangeRate-APIへの通信は、<strong>ユーザーのアクセスとは無関係に定期実行されます。</strong> そのため、お使いの端末のIPアドレス・識別情報・閲覧された通貨ペアが外部のデータ提供元へ伝わることはありません。送信先サービスの取り扱いについては各サービスのポリシーをご確認ください。</p>
     </section>
     <section>
       <h2>データの利用目的・免責</h2>
-      <p>本アプリが表示するレートは日次・情報提供目的であり、遅延があります。本アプリは取引・送金・投資助言などの金融機能を提供しません。投資判断はご自身の責任で行ってください。</p>
+      <p>本アプリが表示するレートは情報提供目的であり、遅延があります（日次レートに加え、1Dチャートでは日中足を表示しますが、いずれもリアルタイムの取引価格ではありません）。本アプリは取引・送金・投資助言などの金融機能を提供しません。投資判断はご自身の責任で行ってください。</p>
     </section>
     <section>
       <h2>お問い合わせ</h2>
       <p>本ポリシーに関するお問い合わせは、<a href="https://github.com/syys3537-ssm/kawase_app">GitHubリポジトリ</a>のIssueよりご連絡ください。</p>
     </section>
-    <p class="updated">最終更新: 2026年7月1日</p>
+    <p class="updated">最終更新: 2026年8月2日</p>
   </div>
 
   <!-- English -->
@@ -100,17 +107,24 @@
     </section>
     <section>
       <h2>Network requests</h2>
-      <p>To fetch rates, the App makes HTTPS requests to the <strong>Frankfurter API</strong> (an external service providing European Central Bank reference rates, <a href="https://frankfurter.dev/">frankfurter.dev</a>). As with any network request, your device's IP address and the requested currency pairs are conveyed to the destination (and any CDN in transit), but <strong>we do not collect or retain them.</strong> Please refer to that service's own policy for its handling of data.</p>
+      <p>To fetch rates, the App makes HTTPS requests to:</p>
+      <ul>
+        <li>the <strong>Frankfurter API</strong> (an external service providing European Central Bank reference rates, <a href="https://frankfurter.dev/">frankfurter.dev</a>), for daily rates and the 1W–10Y charts;</li>
+        <li>a <strong>relay server we operate</strong>, used only for the "1D" (24-hour) chart. The relay periodically fetches rates from <a href="https://www.exchangerate-api.com/">ExchangeRate-API</a> and serves the App from what it has stored.</li>
+      </ul>
+      <p>As with any network request, your device's IP address and the requested currency pairs are conveyed to the destination (and any CDN in transit).</p>
+      <p><strong>About the relay.</strong> Our relay application records nothing about requests — not their contents, not IP addresses, not which currency pairs were viewed. However, the relay's hosting provider (<a href="https://railway.com/">Railway</a>) retains HTTP access logs, including the originating IP address, for a period of time as a standard platform feature. We do not use those logs to identify, track, profile, or advertise to you, and we do not provide them to third parties.</p>
+      <p>The relay's own requests to ExchangeRate-API run <strong>on a schedule, independently of any user activity.</strong> Your IP address, identifiers, and the pairs you view are therefore never conveyed to the upstream data provider. Please refer to each service's own policy for its handling of data.</p>
     </section>
     <section>
       <h2>Purpose &amp; disclaimer</h2>
-      <p>Rates shown are daily, for information purposes only, and may be delayed. The App does not provide trading, transfers, or investment advice. Make your own investment decisions.</p>
+      <p>Rates shown are for information purposes only and may be delayed. The 1D chart shows intraday bars and the other ranges show daily closes; neither is a real-time tradable price. The App does not provide trading, transfers, or investment advice. Make your own investment decisions.</p>
     </section>
     <section>
       <h2>Contact</h2>
       <p>For questions about this policy, please open an issue on the <a href="https://github.com/syys3537-ssm/kawase_app">GitHub repository</a>.</p>
     </section>
-    <p class="updated">Last updated: July 1, 2026</p>
+    <p class="updated">Last updated: August 2, 2026</p>
   </div>
 </main>
 
